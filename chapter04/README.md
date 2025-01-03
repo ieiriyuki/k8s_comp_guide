@@ -122,6 +122,7 @@ kubectl get pod sample-pod -o yaml
 ## 4.5.7 generateName
 - kubectl create で利用可能
 - `metadata: generateName: prefix-` をマニフェストに書く
+- kubectl create -f sample-generatename.yaml
 
 ## 4.5.8 wait
 - リソースの状態を待ってから実行
@@ -130,3 +131,20 @@ kubectl get pod sample-pod -o yaml
   - condition=PodScheduled
   - delete
   - --all
+
+```bash
+kubectl wait --for=condition=PodScheduled pod --all
+ pod/sample-pod condition met
+ pod/prefix-vxb7m condition met
+ pod/prefix-hlgtp condition met
+
+kubectl wait --for=delete pod --all --timeout=5s
+ timed out waiting for the condition on pods/sample-pod
+ timed out waiting for the condition on pods/prefix-vxb7m
+ timed out waiting for the condition on pods/prefix-hlgtp
+
+kubectl delete pod --all --wait=false
+kubectl wait --for=delete pod --all
+# マニフェストファイルを対象にすることもできる
+# --select オプションでリソースを指定できる
+```
