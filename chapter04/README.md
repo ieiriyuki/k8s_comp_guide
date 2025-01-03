@@ -148,3 +148,32 @@ kubectl wait --for=delete pod --all
 # マニフェストファイルを対象にすることもできる
 # --select オプションでリソースを指定できる
 ```
+
+## 4.5.9 マニフェストファイルの設計
+- 複数リソースの記述: `---`
+- `kubectl apply -f sample-multi-resource-manifest.yaml`
+- 複数マニフェストの適用: `kubectl apply -f ./dir [-R]`
+- 小さいシステム: 全てのマイクロサービスを1ディレクトリにまとめる
+  - サブディレクトリに分けてもいい
+  - マイクロサービスごとにマニフェストあるいはディレクトリを作る
+- コンウェイの法則になりがち
+
+## 4.5.10 annotate / label
+- annotate: for system component
+  - can be memo
+  - `metadata.annotations`
+  - システムが自動でつけるものもある
+　　- `kubectl annotate pods sample-annotations annotation3=val3 [--overwrite]`
+  - gke, eks などでは固有の拡張の適用について, アノテーションで設定する
+- label: resource management
+  - `metadata.labels`
+  - `kubectl label pods sample-label label3=val3 [--overwrite]`
+  - フィルタリング: `-l`
+    - ラベルが存在するか
+    - ラベルの値が一致するか
+    - `kubectl get pods -l label1=foo,bar`
+  - システム用
+    - ラベルを元にした管理
+    - ルールを決めて, 衝突しないようにすること
+  - 推奨: `app.kubernetes.io/foo`
+- `prefix/key: value`
