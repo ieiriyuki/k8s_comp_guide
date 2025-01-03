@@ -177,3 +177,42 @@ kubectl wait --for=delete pod --all
     - ルールを決めて, 衝突しないようにすること
   - 推奨: `app.kubernetes.io/foo`
 - `prefix/key: value`
+
+## 4.5.11 Prune
+- `apply --prune`: マニフェストから削除されたリソースを削除する
+- `-l k=v` でラベルを指定する必要がある
+- `--all` ラベルを指定しない場合, 危険
+- 指定されていないディレクトリがある時は注意
+
+- `kubectl edit`
+  - EDITOR あるいは KUBE_EDITOR 環境変数で指定できる
+- `kubectl set`
+  - env, image, resources, selector, serviceaccount, subject
+- `kubectl diff`
+  - ローカルとクラスターの差分
+- `kubectl api-resources`
+  - リソース種別の一覧
+- get
+  - --watch
+- describe
+- top
+- exec: コンテナ上で特定のコマンドを実行する
+  - `kubectl exec -it sample-label -- /bin/bash`
+- debug
+  - distroless, scratch など用
+  - ephemeral container を作る
+- port-forward
+  - ローカルマシンから Pod へのポートフォワーディング
+  - local_port:target_port
+  - deployment, service も対象にできる
+- logs
+  - コンテナのログ
+- Stern: OSS, ログ確認
+- cp: コンテナとローカルマシンでのファイルコピー
+- plugin, krew
+  - パッケージマネージャ
+  - なんやかんやでまず krew を install する
+  - kubectl plugin list
+  - kubectl krew install packs
+- `-v` ログレベル設定
+- 
