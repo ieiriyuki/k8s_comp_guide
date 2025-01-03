@@ -1,0 +1,10 @@
+defaultClusterVersion: 1.14.10-gke.36
+defaultImageType: COS
+validImageTypes:
+- COS
+validMasterVersions:
+- 1.16.8-gke.15
+- 1.15.11-gke.13
+validNodeVersions:
+- 1.16.8-gke.15
+- 1.15.11-gke.13
