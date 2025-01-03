@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: prefix-
+spec:
+  containers:
+  - name: generate-name
+    image: nginx:1.16
+    ports:
+    - containerPort: 80
