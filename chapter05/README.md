@@ -32,3 +32,18 @@
   - ClusterFirstWithHostNet: ClusterFirst と同等
 - `spec.hostAliases` で `/etc/hosts` の書き換えができる
 - `spec.containers[].workingDir` で作業ディレクトリを指定できる
+
+## ReplicaSet
+- `kind: ReplicaSet`
+- セルフヒーリングしてくれる
+- ラベルで対象を指定する
+  - ラベルが一致しない場合はエラーになる
+- ReplicaSet 以外で同ラベルの Pod を作るといずれかが削除される
+  - ラベリングのルールを作るべき
+- スケーリング
+  - マニフェストを書き換えて `apply` する
+  - `kubectl scale` する
+- レプリカの制御条件
+  - equality-based: 条件部に等価式を使う
+  - set-based: 条件部に集合値ベースの条件も使用可能
+    - `env In [development,staging]`
