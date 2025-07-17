@@ -47,3 +47,22 @@
   - equality-based: 条件部に等価式を使う
   - set-based: 条件部に集合値ベースの条件も使用可能
     - `env In [development,staging]`
+
+## Deployment
+- replicaset を管理する
+- pod や replicaset よりも細かい管理ができるため deployment を使うべき
+- `kubectl apply -f sample-deployment.yaml --record`
+- `kubectl get replicasets -o yaml | head`
+- `kubectl set image deployment sample-deployment nginx-container=nginx:1.17 --record`
+- `kubectl get deployments`
+- `kubectl rollout status deployment sample-deployment`
+- Pod の内容の変更があると, ReplicaSet が作成される
+- `kubectl rollout history deployment sample-deployment`
+- `kubectl rollout undo deployment sample-deployment --to-revision 1`
+- `kubectl get replicasets`
+- pause / resume で一時停止したり, 再開したりできる
+- `spec.strategy.type`
+  - Recreate: 削除してから作成, 余計なリソースを使わない, 切り替えが速い
+  - RollingUpdate
+    - maxUnavailable: 許容される不足 Pod 数
+    - maxSurge: 超過 Pod 数
