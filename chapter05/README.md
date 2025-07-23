@@ -70,3 +70,12 @@
 - revisionHistoryLimit: deployment が保持する replicaset の数. ロールバック可能な履歴数
 - progressDeadlineSeconds: recreate / rollingupdate 処理のタイムアウト時間. タイムアウト時間が経過した場合, 自動でロールバックされます
 
+## DaemonSet
+- replicaset の特殊な形
+- 各ノードに pod を1つずつ配置する
+- ノードを増やしたら自動で pod を起動してくれる
+- Fluentd や Datadog のように全ノードで動作させたいプロセスなどに使う
+- OnDelete: 他の要因で pod が再作成されるときに, 新しい定義で作り直す
+- RollingUpdate: 即時 pod の更新を行う. デフォルト
+  - maxSurge を設定することはできない
+  - maxUnavailable を 0 にできない
