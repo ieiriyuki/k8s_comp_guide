@@ -79,3 +79,10 @@
 - RollingUpdate: 即時 pod の更新を行う. デフォルト
   - maxSurge を設定することはできない
   - maxUnavailable を 0 にできない
+
+## StatefulSet
+- replicaset の特殊な形
+- 作成される pod 名のサフィックスは数字
+- データを永続化する仕組みを持っている
+- `kubectl get statefulsets`
+- `kubectl get persistentvolumeclaims`
