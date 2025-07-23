@@ -66,3 +66,7 @@
   - RollingUpdate
     - maxUnavailable: 許容される不足 Pod 数
     - maxSurge: 超過 Pod 数
+- minReadySeconds: Pod が ready 状態になってから deployment リソース的に pod の起動が完了したと判断するまでの最低秒数
+- revisionHistoryLimit: deployment が保持する replicaset の数. ロールバック可能な履歴数
+- progressDeadlineSeconds: recreate / rollingupdate 処理のタイムアウト時間. タイムアウト時間が経過した場合, 自動でロールバックされます
+
