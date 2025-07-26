@@ -86,3 +86,16 @@
 - データを永続化する仕組みを持っている
 - `kubectl get statefulsets`
 - `kubectl get persistentvolumeclaims`
+- `kubectl scale` を使える
+- ReplicaSet の場合, ランダムに削除されるためマスターがいる場合には向かない
+- StatefulSet の場合, 新しいものから削除されるため, 最初のものをマスターにできる
+- `spec.podManagementPolicy` を PArallel に設定することで同時並列起動にできる
+- `OnDelete` と `RollingUpdate` を使える
+  - `RollingUpdate` では `maxUnavailable` を利用できない
+  - `partition` を設定して更新されない Pod を指定できる
+- `kubectl exec -it sample-statefulset-0 -- df -h | grep /dev/sd`
+  - 永続領域の確認
+- `kubectl get persistentvolumeclaims` pod を削除しても volume は残る
+- `kubectl delete persistentvolumeclaims www-sample-statefulset-(0..2)`
+  - 不要な volume の削除
+
