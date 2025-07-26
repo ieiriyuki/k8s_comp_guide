@@ -99,3 +99,9 @@
 - `kubectl delete persistentvolumeclaims www-sample-statefulset-(0..2)`
   - 不要な volume の削除
 
+## Job
+- Pod が停止することを前提にして作られている
+- `kubectl get pods`
+- `restartPolicy`
+  - `Never`: pod 障害時に新規作成する
+  - `OnFailure`: 同一の pod を利用して job を再開する
