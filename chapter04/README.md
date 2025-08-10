@@ -43,7 +43,7 @@ gcloud container node-pools update default-pool \
   --workload-metadata=GKE_METADATA
 ```
 
-でもとりあえず Rancher Desktop の Kubernetes 機能を使うよ
+でもとりあえず Docker Desktop の Kubernetes 機能を使うよ
 
 ## API
 - workloads api
@@ -78,9 +78,9 @@ gcloud container node-pools update default-pool \
 
 ## 4.5.3
 ```bash
-kubectl config set-context kubectl create namespace chapter-04
-kubectl config set-context chapter-04 --cluster=rancher-desktop --user=rancher-desktop --namespace=chapter-04
-kubectl config use-context chapter-04
+kubectl create namespace guide
+kubectl config set-context guide --cluster=docker-desktop --user=ieiri --namespace=guide
+kubectl config use-context guide
 
 # 作成に create が使えるが, 更新もできる apply を使う
 kubectl apply -f sample-pod.yaml
@@ -215,4 +215,3 @@ kubectl wait --for=delete pod --all
   - kubectl plugin list
   - kubectl krew install packs
 - `-v` ログレベル設定
-- 

@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sample-job
+spec:
+  completions: 1
+  parallelism: 1
+  backoffLimit: 10
+  template:
+    spec:
+      containers:
+      - name: tool-container
+        image: amsy810/tools:v2.0
+        command: ["sleep"]
+        args: ["60"]
+        ports:
+        - containerPort: 80
+      restartPolicy: Never
