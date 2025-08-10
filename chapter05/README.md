@@ -105,3 +105,11 @@
 - `restartPolicy`
   - `Never`: pod 障害時に新規作成する
   - `OnFailure`: 同一の pod を利用して job を再開する
+- completion, parallelism, backoffLimit でワークロードを調整する
+  - ワークキュー型のジョブを使用する場合, completion を指定しない
+  - この時処理全体の進捗を関するものが必要
+  - 並列数を1にすると, single worker queue になる
+- `ttlSecondsAfterFinished` でジョブ終了後に削除する
+- `kubectl create job` で簡単なジョブを作成できる
+
+## CronJob
