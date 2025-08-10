@@ -113,3 +113,20 @@
 - `kubectl create job` で簡単なジョブを作成できる
 
 ## CronJob
+- CronJob: Deployment
+  - Job: ReplicaSet
+    - Pod
+- `kubectl get cronjobs`
+- `suspend: true` に設定すれば一時停止可能
+- `kubectl patch cronjob sample-cronjob -p '{"spec": {"suspend": true}}'`
+  - コマンドから設定切り替え
+- `--from` で CronJob から Job を作成できる
+  - 定期実行以外のタイミングで実施するとき
+  - `kubectl create job sample-job --from cronjob/sample-cronjob`
+- `concurrencyPolicy`
+  - Allow: 同時実行を制限しない
+  - Forbid: 前のジョブが終了していない場合, 次のジョブを実行しない
+  - Replace: 前のジョブをキャンセルして新しく再開する
+- `startingDeadlineSeconds` を設定して, 開始時刻が遅れても許容する範囲を指定
+  - デフォルトは無限大
+- `kubectl create cronjob ...` でマニフェストなしで設定できる
