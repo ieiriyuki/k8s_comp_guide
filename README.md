@@ -16,7 +16,7 @@ kubectl config get-contexts
 kubectl config get-users
 kubectl config set-context guide \
   --cluster=docker-desktop \
-  --user=ieiri \
+  --user=docker-desktop \
   --namespace=guide
 kubectl config use-context guide
 ```
