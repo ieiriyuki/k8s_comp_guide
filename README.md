@@ -3,6 +3,25 @@
 
 ## Basic Commands
 
+after 2026-04-06
+```bash
+kubectl version
+Client Version: v1.34.1
+Kustomize Version: v5.7.1
+Server Version: v1.34.3
+
+kubectl get namespace
+NAME                 STATUS   AGE
+default              Active   18d
+kube-node-lease      Active   18d
+kube-public          Active   18d
+kube-system          Active   18d
+local-path-storage   Active   18d
+
+kubectl create namespace guide
+```
+
+before 2026-04-06
 ```bash
 kubectl version
 Client Version: v1.32.2

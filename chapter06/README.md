@@ -48,3 +48,50 @@ Events:                   <none>
 - `kubectl run --image=amsy810/tools:v2.0 --restart=Never --rm -i testpod --command -- curl -s http://10.100.67.253:8080`
 - 複数ポートを service に持たせることもできる
   - named-port
+
+### DNS & Service Discovery
+
+環境変数を利用したサービスディスカバリ
+- `kubectl exec -it deployment-name -- env | grep -i sample_clusterip`
+
+DNS A レコードを利用したサービスディスカバリ
+```bash
+kubectl run --image=amsy810/tools:v2.0 --restart=Never --rm -i testpod \
+  --command -- curl -s http://sample-clusterip:8080
+
+kubectl run --image=amsy810/tools:v2.0 --restart=Never --rm -i testpod \
+  --command -- dig sample-clusterip.guide.svc.cluster.local
+;; QUESTION SECTION:
+;sample-clusterip.guide.svc.cluster.local. IN A
+
+;; ANSWER SECTION:
+sample-clusterip.guide.svc.cluster.local. 30 IN A 10.96.202.230
+
+kubectl run --image=amsy810/tools:v2.0 --restart=Never --rm -i testpod \
+  --command -- cat /etc/resolv.conf
+```
+
+DNS SRV レコードを利用したサービスディスカバリ
+
+Port名とProtocolを利用することでサービス名を提供しているPort番号を含めたエンドポイントをDNSで解決する仕組み
+
+
+```bash
+[_ServiceのPort名].[_Protocol].[Service名].[Namespace名].svc.cluser.local
+
+kubectl run --image=amsy810/tools:v2.0 --restart=Never --rm -i testpod \
+  --command -- dig _http-port._tcp.sample-clusterip.guide.svc.cluster.local SRV
+;; ANSWER SECTION:
+_http-port._tcp.sample-clusterip.guide.svc.cluster.local. 30 IN SRV 0 100 8080 sample-clusterip.guide.svc.cluster.local.
+
+;; ADDITIONAL SECTION:
+sample-clusterip.guide.svc.cluster.local. 30 IN A 10.96.202.230
+```
+
+dnsPolicyを使ってPodのDNSサーバの設定を明示的に行わない限り, 起動するすべてのPodはクラスタ内DNSを利用して名前解決を行う (`*.cluster.local`が保存されている)
+
+Node Local DNS Cache
+
+## ClusterIP Service
+- type: ClusterIP
+  - クラスタ内からのみ疎通性があるInternal Networkに作られる仮想IP
